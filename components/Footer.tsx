@@ -1,13 +1,12 @@
 import React from 'react';
 import { Twitter, Linkedin, Mail } from 'lucide-react';
-import { ViewState } from '../types';
+import { Link } from 'react-router-dom';
 
 interface FooterProps {
-  onNavigate: (view: ViewState) => void;
   onBookClick: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate, onBookClick }) => {
+export const Footer: React.FC<FooterProps> = ({ onBookClick }) => {
   return (
     <footer id="contact" className="bg-driftwood-dark-bg border-t border-driftwood-dark-border py-16 px-4 relative overflow-hidden scroll-mt-28">
       <div className="max-w-4xl mx-auto text-center relative z-10">
@@ -44,8 +43,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onBookClick }) => {
             <div className="mt-4 md:mt-0 flex flex-col md:flex-row gap-4 text-xs text-white/30 font-mono text-center md:text-right">
                 <span>© 2025 Driftwood AI.</span>
                 <div className="flex gap-4 justify-center md:justify-end">
-                    <button onClick={() => { onNavigate('privacy'); window.scrollTo(0,0); }} className="hover:text-white transition-colors">Privacy</button>
-                    <button onClick={() => { onNavigate('terms'); window.scrollTo(0,0); }} className="hover:text-white transition-colors">Terms</button>
+                    <Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+                    <Link to="/terms" className="hover:text-white transition-colors">Terms</Link>
                 </div>
             </div>
         </div>

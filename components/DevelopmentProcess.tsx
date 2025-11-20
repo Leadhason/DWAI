@@ -1,12 +1,11 @@
 import React from 'react';
 import { PROCESS_SUMMARY } from '../constants';
 import { ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-interface Props {
-  onLearnMore: () => void;
-}
+export const DevelopmentProcess: React.FC = () => {
+  const navigate = useNavigate();
 
-export const DevelopmentProcess: React.FC<Props> = ({ onLearnMore }) => {
   return (
     <section className="py-20 px-4 bg-driftwood-light-surface dark:bg-driftwood-dark-surface transition-colors duration-300">
       <div className="max-w-7xl mx-auto">
@@ -20,7 +19,7 @@ export const DevelopmentProcess: React.FC<Props> = ({ onLearnMore }) => {
                 </p>
             </div>
             <button 
-                onClick={onLearnMore}
+                onClick={() => navigate('/methodology')}
                 className="hidden md:flex items-center gap-2 text-driftwood-orange font-mono text-sm hover:underline mt-4 md:mt-0"
             >
                 VIEW_FULL_LIFECYCLE <ArrowRight size={16} />
@@ -47,7 +46,7 @@ export const DevelopmentProcess: React.FC<Props> = ({ onLearnMore }) => {
         
         <div className="mt-8 md:hidden text-center">
             <button 
-                onClick={onLearnMore}
+                onClick={() => navigate('/methodology')}
                 className="inline-flex items-center gap-2 text-driftwood-orange font-mono text-sm hover:underline"
             >
                 VIEW_FULL_LIFECYCLE <ArrowRight size={16} />

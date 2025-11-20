@@ -8,49 +8,11 @@
     
     <title>Driftwood AI | Next Gen Voice Infrastructure</title>
     <meta name="description" content="Driftwood AI deploys hyper-realistic Voice Agents that qualify leads, book appointments, and reactivate databases 24/7." />
-    <meta name="keywords" content="Voice AI, AI Agents, Sales Automation, Cold Calling AI, Database Reactivation, Driftwood AI" />
-    <meta name="author" content="Driftwood AI" />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://driftwood.ai/" />
-    <meta property="og:title" content="Driftwood AI | Next Gen Voice Infrastructure" />
-    <meta property="og:description" content="The Best Sales Rep You’ve Ever Hired is Artificial. Deploy hyper-realistic Voice Agents today." />
-    <meta property="og:image" content="https://driftwood.ai/og-image.jpg" />
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://driftwood.ai/" />
-    <meta property="twitter:title" content="Driftwood AI | Next Gen Voice Infrastructure" />
-    <meta property="twitter:description" content="The Best Sales Rep You’ve Ever Hired is Artificial. Deploy hyper-realistic Voice Agents today." />
-    <meta property="twitter:image" content="https://driftwood.ai/og-image.jpg" />
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Driftwood AI",
-      "url": "https://driftwood.ai",
-      "logo": "https://driftwood.ai/logo.png",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+1-555-010-2020",
-        "contactType": "sales",
-        "areaServed": "US",
-        "availableLanguage": "en"
-      },
-      "sameAs": [
-        "https://twitter.com/driftwoodai",
-        "https://linkedin.com/company/driftwoodai"
-      ]
-    }
-    </script>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -100,12 +62,9 @@
       }
     </script>
     <style>
-      /* Enable smooth scrolling for native anchor links */
       html {
         scroll-behavior: smooth;
       }
-
-      /* Custom scrollbar for a tech feel */
       ::-webkit-scrollbar {
         width: 8px;
       }
@@ -119,30 +78,29 @@
       ::-webkit-scrollbar-thumb:hover {
         background: #F78C36; 
       }
-      
-      /* Smooth transitions for theme toggle */
       body, div, nav, button, section {
         transition-property: background-color, border-color, color, box-shadow;
         transition-duration: 300ms;
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
       }
-
-      /* Mobile Polish */
       html, body {
-        overscroll-behavior: none; /* Prevents bounce effect revealing white background */
+        overscroll-behavior: none;
       }
-      
       body.modal-open {
         overflow: hidden;
       }
     </style>
-  <script type="importmap">
+    <script type="importmap">
 {
   "imports": {
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0"
+    "react": "https://esm.sh/react@18.2.0",
+    "react/": "https://esm.sh/react@18.2.0/",
+    "react-dom": "https://esm.sh/react-dom@18.2.0",
+    "react-dom/": "https://esm.sh/react-dom@18.2.0/",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3?external=react,react-dom",
+    "react-helmet-async": "https://esm.sh/react-helmet-async@2.0.4?external=react,react-dom",
+    "lucide-react": "https://esm.sh/lucide-react@0.344.0?external=react"
   }
 }
 </script>

@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import { AUDIO_SAMPLES } from '../constants';
 import { AudioPlayer } from './AudioPlayer';
 import { ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-interface Props {
-  onNavigate?: () => void;
-}
-
-export const AudioDemos: React.FC<Props> = ({ onNavigate }) => {
+export const AudioDemos: React.FC = () => {
   const [activeAudioId, setActiveAudioId] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   return (
     <section id="demos" className="py-20 px-4 bg-driftwood-light-bg dark:bg-driftwood-dark-bg transition-colors duration-300 scroll-mt-28">
@@ -21,14 +19,12 @@ export const AudioDemos: React.FC<Props> = ({ onNavigate }) => {
                 Listen to how our models handle complex negotiation, objection handling, and empathetic tones.
             </p>
             
-            {onNavigate && (
-              <button 
-                onClick={onNavigate}
-                className="inline-flex items-center gap-2 text-driftwood-orange font-mono text-sm hover:underline"
-              >
-                VIEW_ALL_AGENTS <ArrowRight size={16} />
-              </button>
-            )}
+            <button 
+              onClick={() => navigate('/demos')}
+              className="inline-flex items-center gap-2 text-driftwood-orange font-mono text-sm hover:underline"
+            >
+              VIEW_ALL_AGENTS <ArrowRight size={16} />
+            </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

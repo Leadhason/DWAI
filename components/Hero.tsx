@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { ViewState } from '../types';
+import { useNavigate } from 'react-router-dom';
 
-interface HeroProps {
-  onNavigate: (view: ViewState) => void;
-}
-
-export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
+export const Hero: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 pt-20 overflow-hidden bg-driftwood-light-bg dark:bg-driftwood-dark-bg transition-colors duration-300">
@@ -50,13 +47,13 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
       {/* CTAs */}
       <div className="flex flex-col sm:flex-row gap-4 w-full justify-center items-center">
         <button 
-            onClick={() => { onNavigate('demos'); window.scrollTo({top: 0, behavior: 'smooth'}); }}
+            onClick={() => navigate('/demos')}
             className="w-full sm:w-auto px-8 py-4 bg-driftwood-orange text-white font-sans font-bold rounded hover:bg-orange-600 transition-all shadow-[0_0_20px_rgba(247,140,54,0.4)] flex items-center justify-center gap-2"
         >
           Listen to Samples ▶
         </button>
         <button 
-            onClick={() => { onNavigate('solutions'); window.scrollTo({top: 0, behavior: 'smooth'}); }}
+            onClick={() => navigate('/solutions')}
             className="w-full sm:w-auto px-8 py-4 border border-driftwood-light-border dark:border-driftwood-dark-border text-driftwood-light-text dark:text-white font-sans font-medium rounded hover:bg-black/5 dark:hover:bg-white/5 transition-all flex items-center justify-center gap-2"
         >
           View Automation Stack <ArrowRight size={16} />
@@ -64,4 +61,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
       </div>
 
       {/* Background Glow Element */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[5
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-driftwood-orange/5 blur-[120px] rounded-full pointer-events-none z-0"></div>
+    </section>
+  );
+};

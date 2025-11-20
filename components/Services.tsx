@@ -1,18 +1,22 @@
 import React from 'react';
-import { PhoneIncoming, DatabaseZap, CalendarCheck, LucideIcon, ArrowRight } from 'lucide-react';
+import { PhoneIncoming, DatabaseZap, CalendarCheck, Clock, ServerCog, LucideIcon, ArrowRight } from 'lucide-react';
 import { SERVICES } from '../constants';
+import { useNavigate } from 'react-router-dom';
 
 const iconMap: Record<string, LucideIcon> = {
   PhoneIncoming,
   DatabaseZap,
-  CalendarCheck
+  CalendarCheck,
+  Clock,
+  ServerCog
 };
 
-interface Props {
-  onNavigate?: () => void;
-}
+export const Services: React.FC = () => {
+  const navigate = useNavigate();
 
-export const Services: React.FC<Props> = ({ onNavigate }) => {
+  // Only show the first 3 on the homepage
+  const displayedServices = SERVICES.slice(0, 3);
+
   return (
     <section id="solutions" className="py-20 px-4 bg-driftwood-light-surface dark:bg-driftwood-dark-surface transition-colors duration-300 scroll-mt-28">
       <div className="max-w-7xl mx-auto">
@@ -25,19 +29,17 @@ export const Services: React.FC<Props> = ({ onNavigate }) => {
               Enterprise-grade voice infrastructure designed for scale.
             </p>
           </div>
-          {onNavigate && (
-            <button 
-              onClick={onNavigate}
-              className="hidden md:flex items-center gap-2 text-driftwood-orange font-mono text-sm hover:underline mt-4 md:mt-0"
-            >
-              EXPLORE_SOLUTIONS <ArrowRight size={16} />
-            </button>
-          )}
+          <button 
+            onClick={() => navigate('/solutions')}
+            className="hidden md:flex items-center gap-2 text-driftwood-orange font-mono text-sm hover:underline mt-4 md:mt-0"
+          >
+            EXPLORE_SOLUTIONS <ArrowRight size={16} />
+          </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {SERVICES.map((service, idx) => {
-            const Icon = iconMap[service.iconName];
+          {displayedServices.map((service, idx) => {
+            const Icon = iconMap[service.iconName] || PhoneIncoming;
             return (
               <div key={idx} className="flex flex-col items-start group">
                 <div className="p-3 rounded bg-driftwood-orange/10 text-driftwood-orange mb-6 group-hover:scale-110 transition-transform">
@@ -52,27 +54,19 @@ export const Services: React.FC<Props> = ({ onNavigate }) => {
                 <p className="text-driftwood-light-text dark:text-driftwood-dark-text leading-relaxed">
                   {service.description}
                 </p>
-                
-                {idx === 0 && (
-                    <div className="mt-6 font-mono text-xs text-driftwood-dark-text bg-black/5 dark:bg-white/5 p-2 rounded w-full border border-dashed border-driftwood-light-border dark:border-driftwood-dark-border">
-                        Stack: Twilio + Python + OpenAI
-                    </div>
-                )}
               </div>
             );
           })}
         </div>
 
-        {onNavigate && (
-            <div className="mt-12 md:hidden text-center">
-                <button 
-                  onClick={onNavigate}
-                  className="inline-flex items-center gap-2 text-driftwood-orange font-mono text-sm hover:underline"
-                >
-                  EXPLORE_SOLUTIONS <ArrowRight size={16} />
-                </button>
-            </div>
-        )}
+        <div className="mt-12 md:hidden text-center">
+            <button 
+              onClick={() => navigate('/solutions')}
+              className="inline-flex items-center gap-2 text-driftwood-orange font-mono text-sm hover:underline"
+            >
+              EXPLORE_SOLUTIONS <ArrowRight size={16} />
+            </button>
+        </div>
       </div>
     </section>
   );

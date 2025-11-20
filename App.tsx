@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { AudioDemos } from './components/AudioDemos';
@@ -15,11 +16,29 @@ import { MethodologyPage } from './components/MethodologyPage';
 import { SolutionsPage } from './components/SolutionsPage';
 import { DemosPage } from './components/DemosPage';
 import { ContactPage } from './components/ContactPage';
-import { Theme, ViewState } from './types';
+import { Theme } from './types';
+
+// ScrollToTop component to ensure navigation starts at the top
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
+const Home = () => (
+  <main>
+    <Hero />
+    <DevelopmentProcess />
+    <AudioDemos />
+    <Services />
+    <Automation />
+  </main>
+);
 
 export default function App() {
   const [theme, setTheme] = useState<Theme>('dark');
-  const [currentView, setCurrentView] = useState<ViewState>('home');
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
 
@@ -45,53 +64,27 @@ export default function App() {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
-  const handleNavigate = (view: ViewState) => {
-    setCurrentView(view);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const renderView = () => {
-      switch (currentView) {
-        case 'solutions':
-          return <SolutionsPage />;
-        case 'demos':
-          return <DemosPage />;
-        case 'methodology':
-          return <MethodologyPage />;
-        case 'contact':
-          return <ContactPage onOpenModal={() => setIsContactOpen(true)} />;
-        case 'privacy':
-          return <PrivacyPolicy onBack={() => handleNavigate('home')} />;
-        case 'terms':
-          return <TermsOfService onBack={() => handleNavigate('home')} />;
-        case 'home':
-        default:
-          return (
-            <main>
-                <Hero onNavigate={handleNavigate} />
-                <DevelopmentProcess onLearnMore={() => handleNavigate('methodology')} />
-                <AudioDemos onNavigate={() => handleNavigate('demos')} />
-                <Services onNavigate={() => handleNavigate('solutions')} />
-                <Automation />
-            </main>
-          );
-      }
-  };
-
   return (
     <ErrorBoundary>
+        <ScrollToTop />
         <div className="min-h-screen w-full font-sans bg-driftwood-light-bg dark:bg-driftwood-dark-bg text-driftwood-light-text dark:text-white selection:bg-driftwood-orange selection:text-white">
         <Navbar 
             theme={theme} 
             toggleTheme={toggleTheme} 
             onDeployClick={() => setIsContactOpen(true)}
-            onNavigate={handleNavigate}
         />
         
-        {renderView()}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/solutions" element={<SolutionsPage />} />
+          <Route path="/demos" element={<DemosPage />} />
+          <Route path="/methodology" element={<MethodologyPage />} />
+          <Route path="/contact" element={<ContactPage onOpenModal={() => setIsContactOpen(true)} />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
+        </Routes>
         
         <Footer 
-            onNavigate={handleNavigate} 
             onBookClick={() => setIsBookingOpen(true)}
         />
         

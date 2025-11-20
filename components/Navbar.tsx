@@ -1,29 +1,27 @@
 import React from 'react';
 import { Sun, Moon, Menu, X } from 'lucide-react';
-import { Theme, ViewState } from '../types';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Theme } from '../types';
 
 interface NavbarProps {
   theme: Theme;
   toggleTheme: () => void;
   onDeployClick: () => void;
-  onNavigate: (view: ViewState) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme, onDeployClick, onNavigate }) => {
+export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme, onDeployClick }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const navLinks: { name: string; view: ViewState }[] = [
-    { name: 'Solutions', view: 'solutions' },
-    { name: 'Voice Demos', view: 'demos' },
-    { name: 'Methodology', view: 'methodology' },
-    { name: 'Contact', view: 'contact' },
+  const navLinks = [
+    { name: 'Solutions', path: '/solutions' },
+    { name: 'Voice Demos', path: '/demos' },
+    { name: 'Methodology', path: '/methodology' },
+    { name: 'Contact', path: '/contact' },
   ];
 
-  const handleLinkClick = (view: ViewState) => {
-      setIsMobileMenuOpen(false);
-      onNavigate(view);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const isActive = (path: string) => location.pathname === path;
 
   const handleDeploy = () => {
       setIsMobileMenuOpen(false);
@@ -35,9 +33,9 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme, onDeployClic
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <div 
+          <Link 
+            to="/"
             className="flex-shrink-0 flex items-center gap-3 cursor-pointer" 
-            onClick={() => { onNavigate('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
           >
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M16 2L4 26H28L16 2Z" className="fill-driftwood-orange" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
@@ -46,18 +44,22 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme, onDeployClic
             <span className="font-sans font-bold text-xl tracking-tight text-driftwood-light-text dark:text-white">
               Driftwood<span className="text-driftwood-orange">AI</span>
             </span>
-          </div>
+          </Link>
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <button
+              <Link
                 key={link.name}
-                onClick={() => handleLinkClick(link.view)}
-                className="font-mono text-sm text-driftwood-light-text dark:text-driftwood-dark-text hover:text-driftwood-orange dark:hover:text-driftwood-orange transition-colors"
+                to={link.path}
+                className={`font-mono text-sm transition-colors ${
+                  isActive(link.path) 
+                    ? 'text-driftwood-orange' 
+                    : 'text-driftwood-light-text dark:text-driftwood-dark-text hover:text-driftwood-orange dark:hover:text-driftwood-orange'
+                }`}
               >
                 {link.name}
-              </button>
+              </Link>
             ))}
           </div>
 
@@ -100,13 +102,16 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme, onDeployClic
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-20 left-0 w-full bg-driftwood-light-bg dark:bg-driftwood-dark-bg border-b border-driftwood-light-border dark:border-driftwood-dark-border p-4 flex flex-col gap-4 shadow-2xl h-screen">
           {navLinks.map((link) => (
-            <button
+            <Link
               key={link.name}
-              onClick={() => handleLinkClick(link.view)}
-              className="font-mono text-lg text-driftwood-light-text dark:text-white text-left"
+              to={link.path}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`font-mono text-lg text-left ${
+                isActive(link.path) ? 'text-driftwood-orange' : 'text-driftwood-light-text dark:text-white'
+              }`}
             >
               {link.name}
-            </button>
+            </Link>
           ))}
           <button 
             onClick={handleDeploy}
